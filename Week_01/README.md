@@ -1,4 +1,4 @@
-##学习笔记
+## 学习笔记
 1.自己写一个简单的hello.java,里面需要设计基本类型，四则运算，if和for,然后自己分析一下对应的字节码
 
 https://github.com/xbtshady/JAVA-01/blob/main/Week_01/%E5%AD%97%E8%8A%82%E7%A0%81.md
