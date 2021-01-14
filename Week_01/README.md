@@ -12,3 +12,4 @@ https://github.com/xbtshady/JAVA-01/blob/main/Week_01/Hello.java
 https://github.com/xbtshady/JAVA-01/blob/main/Week_01/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.jpg
 
 4.本机使用 G1 GC 启动一个程序，仿照课上案例分析一下 JVM 情况
+https://github.com/xbtshady/JAVA-01/blob/main/Week_01/GC.md
