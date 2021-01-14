@@ -55,7 +55,7 @@ tenured generation:
 
 16002 interned Strings occupying 2152928 bytes.
 ```
-> ## 并行gc
+## 并行gc
 ```
 java -Xmx1g -Xms1g -XX:-UseAdaptiveSizePolicy -XX:+UseParallelGC -jar gateway-server-0.0.1-SNAPSHOT.jar
 ```
