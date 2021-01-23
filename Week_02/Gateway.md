@@ -1,10 +1,12 @@
- # wrk命令
+wrk命令
+==== 
 
 ```
 wrk -c40 -d30s http://localhost:8088/api/hello
 ```
 
-#SerialGC
+SerialGC
+==== 
 命令：
  ```
 java -Xms512m -Xms512m -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m -XX:+UseSerialGC -XX:+PrintGCDateStamps -jar gateway-server-0.0.1-SNAPSHOT.jar
@@ -41,7 +43,8 @@ java -Xms8g -Xms8g -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSi
 >从GC的角度来看，从512M换到1gGC次数和减少了,后面继续增大内存GC次数减少了但是总耗时却没有明显减少，也就是说GC的平均耗时增加了
                  
  
-#ParallelGC
+ParallelGC
+==== 
 命令：
  ```
 java -Xms512m -Xms512m -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m -XX:+UseParallelGC -XX:+PrintGCDateStamps -jar gateway-server-0.0.1-SNAPSHOT.jar
@@ -77,7 +80,8 @@ java -Xms8g -Xms8g -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSi
 >QPS没有因为内存的变化获得太大的变化，内存超过4g之后延迟增加了
 >youngGC次数随着内存的增大次数减少，总耗时增加，平均耗时增加
 
-#ConcMarkSweepGC
+ConcMarkSweepGC
+==== 
 命令：
  ```
 java -Xms512m -Xms512m -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m -XX:+UseConcMarkSweepGC -XX:+PrintGCDateStamps -jar gateway-server-0.0.1-SNAPSHOT.jar
@@ -113,7 +117,8 @@ java -Xms8g -Xms8g -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSi
  >QPS没有因为内存的变化获得太大的变化，内存超过8g之后延迟增加了
  >youngGC次数随着内存的增大次数减少，总耗时增加，平均耗时增加，特别是>4g之后，youngGC总耗时增加得很多
 
-#G1GC
+G1GC
+==== 
 命令：
  ```
 java -Xms512m -Xms512m -XX:+PrintGCDetails -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m -XX:+UseG1GC -XX:MaxGCPauseMillis=50 -XX:+PrintGCDateStamps -jar gateway-server-0.0.1-SNAPSHOT.jar
