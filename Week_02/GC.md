@@ -1,0 +1,5 @@
+#调优总结
+
+1.Xmx和Xms的设置要在不影响吞吐的情况下设置得尽量小，设置大了GC时间长延迟会增加，对吞吐也有影响
+2.ParallelGC对比CMSGC对吞吐的影响较小，因为ParallelGC不会在业务进行的时候占用CPU的资源，如果考虑延迟就应该使用CMSGC
+3.初始的MetaSpace空间大小一般较小，JVM启动的时候MetaSpace太小，将会执行多次FullGC,为了防止这种情况就需要设置初始MetaSpace的大小和最大大小
