@@ -20,7 +20,6 @@
 10.[使用额外的类 ReentrantLock、Condition](  https://github.com/xbtshady/JAVA-01/blob/main/Week_04/homework/src/main/java/Thread_10.java)
 
 ## 2.整理并发脑图
-
-![avatar](https://github.com/xbtshady/JAVA-01/blob/main/Week_04/%E5%B9%B6%E5%8F%91.png)
+[图片链接](https://github.com/xbtshady/JAVA-01/blob/main/Week_04/%E5%B9%B6%E5%8F%91.png)
 
 
