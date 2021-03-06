@@ -1,0 +1,15 @@
+master:
+  db:
+    url: jdbc:mysql://192.168.0.107:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+#从数据库
+slave:
+  db:
+    url: jdbc:mysql://192.168.0.107:3306/test2?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
