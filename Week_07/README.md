@@ -1,4 +1,4 @@
-### 按自己设计的表结构，插入 100 万订单模拟数据，测试不同方式的插入效率
+### 1.按自己设计的表结构，插入 100 万订单模拟数据，测试不同方式的插入效率
 [代码链接](https://github.com/xbtshady/JAVA-01/tree/main/Week_07/insertSql)
 
 测试方法：
@@ -10,7 +10,7 @@
 * 数据最好是分批多次插入
 * rewriteBatchedStatements参数会影响到批量插入，=true才会批量执行SQL
 
-### 动态切换数据源版本 
+### 2.动态切换数据源版本 
 
 [代码链接](https://github.com/xbtshady/JAVA-01/tree/main/Week_07/ds)
 
@@ -37,7 +37,7 @@ public class TestController {
 }
 ```
 
-### 读写分离 - 数据库框架版本 
+### 3.读写分离 - 数据库框架版本 
 
 [代码链接](https://github.com/xbtshady/JAVA-01/tree/main/Week_07/shardingsphere)
 
