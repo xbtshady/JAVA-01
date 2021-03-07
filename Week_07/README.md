@@ -37,3 +37,8 @@ public class TestController {
 }
 ```
 
+### 读写分离 - 数据库框架版本 
+
+[代码链接](https://github.com/xbtshady/JAVA-01/tree/main/Week_07/shardingsphere)
+
+
