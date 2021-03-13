@@ -1,0 +1,32 @@
+sharding:
+  jdbc:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: org.apache.commons.dbcp.BasicDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3357/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: xw@mysql2020
+      ds1:
+        type: org.apache.commons.dbcp.BasicDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3357/test1?useUnicode=true&characterEncoding=utf-8&useSSL=false
+        username: root
+        password: xw@mysql2020
+    config:
+      sharding:
+        props:
+          sql.show: true
+        tables:
+          sc_order: #这里要对 t_order 表进行既分库又分表
+            key-generator-cloumn-name: id #自动生成主键的列名
+            actual-data-nodes: ds${0..1}.sc_order_${0..15} #实际数据库的节点，对应于上面配置的数据源名称
+            database-strategy: #分库策略
+              inline:
+                sharding-column: user_id
+                algorithm-expression: ds${user_id % 16}
+            table-strategy: #分表策略
+              inline:
+                sharding-column: order_id
+                algorithm-expression: sc_order_${order_id % 16}
