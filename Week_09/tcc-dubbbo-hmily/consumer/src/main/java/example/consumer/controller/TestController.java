@@ -18,11 +18,10 @@
 package example.consumer.controller;
 
 
+import example.consumer.po.Order;
 import example.consumer.service.ITestService;
-import org.example.common.order.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,17 +37,16 @@ public class TestController {
     }
 
 
-    @GetMapping(value = "/test")
-    public String orderPay(int a) {
-        //测试插入一个订单
-        testService.test(a);
-        return "";
-    }
-
     @GetMapping(value = "/transfer")
     public void transfer(){
+        //在内存中创建一个订单 用户1转7人民币到给用户2的美元账户上
+        Order order = Order.builder()
+                .user_income(2)
+                .user_pay(1)
+                .count(7)
+                .build();
         //测试进行转账
-        testService.transfer();
+        testService.transfer(order);
     }
 
 }

@@ -15,27 +15,28 @@
  * limitations under the License.
  */
 
-package org.example.common.account.DTO;
+package org.example.common.wallet.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
-
+/**
+ * The type Inventory dto.
+ *
+ * @author xiaoyu
+ */
 @Data
-public class AccountDTO implements Serializable {
-
-    private static final long serialVersionUID = 7223470850578998427L;
-    
+@Builder
+public class WalletDTO implements Serializable {
     /**
-     * 用户id
+     * 用户id.
      */
-    private Integer userId;
+    private int userId;
 
     /**
-     * 扣款金额
+     * 金额.
      */
-    private BigDecimal amount;
-
+    private int amount;
 }

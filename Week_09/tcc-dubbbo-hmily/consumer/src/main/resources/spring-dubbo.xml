@@ -19,13 +19,13 @@
                     queues="0" buffer="8192" accepts="0" payload="8388608"/>
 
     <dubbo:reference timeout="500000000"
-                     interface="org.example.common.order.service.IOrderService"
-                     id="orderService"
+                     interface="org.example.common.walletFrozen.service.IWalletFrozenService"
+                     id="walletFrozenService"
                      retries="0" check="false" actives="20"/>
 
     <dubbo:reference timeout="500000000"
-                     interface="org.example.common.account.service.IAccountService"
-                     id="accountService"
+                     interface="org.example.common.wallet.service.IWalletService"
+                     id="walletService"
                      retries="0" check="false" actives="20"/>
 
 </beans>

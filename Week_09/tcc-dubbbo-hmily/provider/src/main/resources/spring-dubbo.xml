@@ -17,11 +17,11 @@
                     charset="UTF-8" threadpool="fixed" threads="500"
                     queues="0" buffer="8192" accepts="0" payload="8388608" />
 
-    <dubbo:service interface="org.example.common.order.service.IOrderService"
-                   ref="orderService" executes="20"/>
+    <dubbo:service interface="org.example.common.wallet.service.IWalletService"
+                   ref="walletService" executes="20"/>
 
-    <dubbo:service interface="org.example.common.account.service.IAccountService"
-                   ref="accountService" executes="20"/>
+    <dubbo:service interface="org.example.common.walletFrozen.service.IWalletFrozenService"
+                   ref="walletFrozenService" executes="20"/>
 
 
 </beans>

@@ -1,5 +1,7 @@
 package example.consumer.service;
 
+import example.consumer.po.Order;
+
 /**
  * <p>
  *  服务类
@@ -9,7 +11,5 @@ package example.consumer.service;
  * @since 2021-03-19
  */
 public interface ITestService {
-    public void test(int a);
-
-    public void transfer();
+    Boolean transfer(Order order);
 }

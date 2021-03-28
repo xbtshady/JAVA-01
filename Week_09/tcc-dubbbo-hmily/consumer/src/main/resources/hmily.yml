@@ -1,10 +1,10 @@
 hmily:
   server:
     configMode: local
-    appName: consumer
+    appName: provider
   #  如果server.configMode eq local 的时候才会读取到这里的配置信息.
   config:
-    appName: consumer
+    appName: provider
     serializer: kryo
     contextTransmittalMode: threadLocal
     scheduledThreadMax: 16
@@ -22,25 +22,14 @@ hmily:
     autoSql: true
     phyDeleted: true
     storeDays: 3
-    repository: mysql
+    repository: file
 
 repository:
-  database:
-    driverClassName: com.mysql.jdbc.Driver
-    url : jdbc:mysql://47.93.238.228:3357/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
-    password: xw@mysql2020
-    maxActive: 20
-    minIdle: 10
-    connectionTimeout: 30000
-    idleTimeout: 600000
-    maxLifetime: 1800000
+  zookeeper:
+    host: localhost:2181
+    sessionTimeOut: 1000
+    rootPath: /hmily
+  file:
+    path:
+    prefix: /hmily
 
-
-metrics:
-  metricsName: prometheus
-  host:
-  port: 9091
-  async: true
-  threadCount : 16
-  jmxConfig:

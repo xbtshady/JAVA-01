@@ -1,15 +1,18 @@
 package example.consumer.service.impl;
 
+import example.consumer.po.Order;
 import example.consumer.service.ITestService;
 import org.dromara.hmily.annotation.HmilyTCC;
-import org.example.common.account.DTO.AccountDTO;
-import org.example.common.order.entity.Order;
-import org.example.common.order.enums.OrderStatusEnum;
-import org.example.common.order.service.IOrderService;
+import org.example.common.wallet.dto.WalletDTO;
+import org.example.common.wallet.service.IWalletService;
+import org.example.common.walletFrozen.dto.WalletFrozenDTO;
+import org.example.common.walletFrozen.service.IWalletFrozenService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 
 /**
  * <p>
@@ -21,46 +24,56 @@ import java.math.BigDecimal;
  */
 @Service("testService")
 public class TestServiceImpl implements ITestService {
-    private final IOrderService orderService;
+    private static final Logger logger = LoggerFactory.getLogger(TestServiceImpl.class);
 
-    private final PaymentService paymentService;
+
+    private final IWalletService walletService;
+
+    private final IWalletFrozenService walletFrozenService;
 
 
     @Autowired(required = false)
-    public TestServiceImpl(IOrderService orderService, PaymentService paymentService) {
-        this.orderService = orderService;
-        this.paymentService = paymentService;
+    public TestServiceImpl(IWalletService walletService, IWalletFrozenService walletFrozenService) {
+        this.walletService = walletService;
+        this.walletFrozenService = walletFrozenService;
     }
-
     @Override
-    public void test(int a) {
-        Order order = new Order();
-        order.setAmount(new BigDecimal(10.0));
-        order.setStatus(1);
-        order.setUserId(a);
-        order.setUnit(1);
-        orderService.test(order);
+    @HmilyTCC(confirmMethod = "confirmTransfer", cancelMethod = "cancelTransfer")
+    public Boolean transfer(Order order) {
+        //try阶段 用户1余额减7元 且冻结用户1的人民币7元
+        walletFrozenService.freezeCNY(createWalletFrozenDTO(order.getUser_pay(),order.getCount()));
+        return walletService.payCNY(createWalletDTO(order.getUser_pay(),order.getCount())) > 0;
     }
 
-    @Override
-    public void transfer() {
-        /**
-         * 创建订单
-         */
-        Order order = saveNewOrder(1,new BigDecimal(1),OrderStatusEnum.UINT_RMB.getCode());
-        paymentService.makePayment(order);
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean confirmTransfer(Order order) {
+        logger.info("confirmTransfer run");
+        //confirm阶段 解冻用户1的冻结余额,用户2美元余额增加1
+        walletFrozenService.unfreezeCNY(createWalletFrozenDTO(order.getUser_pay(),order.getCount()));
+        walletService.inComeUsb(createWalletDTO(order.getUser_income(),order.getCount()/7));
+        return true;
     }
 
-
-    Order saveNewOrder(Integer userId,BigDecimal amount,Integer unit){
-        Order order = new Order();
-        order.setUserId(userId);
-        order.setStatus(OrderStatusEnum.PAYING.getCode());
-        order.setAmount(amount);
-        order.setUnit(unit);
-        orderService.save(order);
-        return order;
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean cancelTransfer(Order order) {
+        logger.info("cancelTransfer run");
+        //confirm阶段 解冻用户1的冻结余额,用户1美元余额增加7
+        walletFrozenService.unfreezeCNY(createWalletFrozenDTO(order.getUser_pay(),order.getCount()));
+        walletService.inComeCNY(createWalletDTO(order.getUser_pay(),order.getCount()));
+        return true;
     }
 
+    private WalletDTO createWalletDTO(int userId,int count){
+        return WalletDTO.builder()
+                .userId(userId)
+                .amount(count)
+                .build();
+    }
 
+    private WalletFrozenDTO createWalletFrozenDTO(int userId,int count){
+        return WalletFrozenDTO.builder()
+                .userId(userId)
+                .amount(count)
+                .build();
+    }
 }

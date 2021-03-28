@@ -15,19 +15,28 @@
  * limitations under the License.
  */
 
-package example.consumer.service;
+package org.example.common.walletFrozen.dto;
 
-import org.example.common.order.entity.Order;
+import lombok.Builder;
+import lombok.Data;
+
+import java.io.Serializable;
 
 /**
- * The interface Payment service.
+ * The type Inventory dto.
  *
  * @author xiaoyu
  */
-public interface IPaymentService {
-    
+@Data
+@Builder
+public class WalletFrozenDTO implements Serializable {
     /**
-     * 订单支付
+     * 用户id.
      */
-    void makePayment(Order order);
+    private int userId;
+
+    /**
+     * 金额.
+     */
+    private int amount;
 }
